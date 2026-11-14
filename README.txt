@@ -1,0 +1,1 @@
+Upload/replace index.html and add reader.html in the ROOT of your GitHub repository (main branch). Keep both files side-by-side. GitHub Pages is already configured to main / (root). After committing, wait for Pages to redeploy and open your site. Tap OPEN CINEMATIC READER. The reader is a text-based preview; illustrated manga artwork has not yet been added.
