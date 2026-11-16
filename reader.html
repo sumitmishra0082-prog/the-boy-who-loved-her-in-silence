@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100d18">
+<title>Manga Cinematic Reader</title>
+<style>
+:root {
+  --bg:#100d18;
+  --card:#211927;
+  --ink:#fff7fb;
+  --muted:#c9bdca;
+  --pink:#f2a9c4;
+  --line:#65485d;
+}
+*{box-sizing:border-box}
+body{
+ margin:0;background:var(--bg);color:var(--ink);
+ font-family:Georgia,serif;line-height:1.7;
+}
+body.light{
+ --bg:#f8f0f5;--card:#fff;--ink:#251a27;
+ --muted:#685969;--pink:#a43f70;--line:#dfc6d5;
+}
+#progress{
+ position:fixed;top:0;left:0;height:3px;
+ background:var(--pink);width:0;z-index:10;
+}
+nav{
+ position:sticky;top:0;z-index:5;
+ background:var(--bg);border-bottom:1px solid var(--line);
+ padding:12px;display:flex;justify-content:space-between;
+ align-items:center;gap:8px;font:11px Arial;
+}
+nav a{color:var(--pink);text-decoration:none}
+button{
+ background:var(--card);color:var(--ink);
+ border:1px solid var(--line);padding:9px 13px;
+ border-radius:20px;cursor:pointer;
+}
+main{width:min(94%,720px);margin:auto}
+.cover{
+ min-height:75vh;display:grid;align-content:center;
+ justify-items:center;text-align:center;padding:40px 12px;
+ background:radial-gradient(ellipse,#50344c,transparent 70%);
+}
+.kicker,.small{
+ color:var(--pink);font:10px Arial;
+ letter-spacing:3px;text-transform:uppercase;
+}
+h1{font-size:clamp(38px,10vw,70px);line-height:1.08}
+.cover p{color:var(--muted);font-style:italic}
+.start{
+ display:inline-block;margin-top:20px;padding:12px 22px;
+ color:var(--ink);border:1px solid var(--pink);
+ text-decoration:none;font:12px Arial;letter-spacing:2px;
+}
+.chapter-nav{
+ display:flex;gap:10px;justify-content:center;
+ flex-wrap:wrap;padding:25px 0;
+}
+.chapter-nav button.active{
+ background:var(--pink);color:#21121d;
+}
+.chapter{display:none}
+.chapter.active{display:block}
+.chapter-title{text-align:center;padding:45px 10px}
+.chapter-title h2{font-size:clamp(28px,7vw,46px);line-height:1.2}
+.page{
+ margin:25px 0 35px;padding:18px;
+ border:2px solid var(--line);background:var(--card);
+ box-shadow:5px 5px 0 #09070e;
+}
+.page-number{
+ color:var(--pink);font:10px Arial;
+ letter-spacing:2px;margin-bottom:12px;
+}
+.panel{
+ min-height:180px;margin:12px 0;padding:22px 16px;
+ border:2px solid var(--ink);display:flex;
+ flex-direction:column;justify-content:center;
+ background:linear-gradient(145deg,#302638,#17131e);
+ color:#fff;text-align:center;
+}
+.panel h3{font-size:clamp(21px,5vw,30px);line-height:1.3}
+.panel p{color:#e5dce7}
+.panel .visual{
+ font-size:43px;margin-bottom:8px;
+}
+.panel.light-panel{
+ background:linear-gradient(145deg,#4b3549,#24202f);
+}
+.bubble{
+ display:block;max-width:90%;margin:14px auto;
+ padding:12px 16px;background:#fff;color:#19121b;
+ border:2px solid #111;border-radius:25px;
+ font:bold 15px/1.5 Arial;
+}
+.bubble.thought{
+ border-style:dashed;border-radius:18px;
+ font-style:italic;
+}
+.speaker{
+ color:var(--pink);font:bold 11px Arial;
+ letter-spacing:1px;text-transform:uppercase;
+ margin-top:12px;
+}
+.narration{
+ background:#eee5eb;color:#241824;
+ padding:13px;margin:12px auto;
+ max-width:95%;font:italic 13px/1.6 Georgia;
+ text-align:center;
+}
+.pause{
+ text-align:center;color:var(--pink);
+ letter-spacing:8px;padding:22px;
+}
+.scene-heading{
+ text-align:center;color:var(--pink);
+ font:11px Arial;letter-spacing:3px;
+ margin:35px 0 12px;
+}
+.end{
+ text-align:center;padding:60px 10px;
+ border-top:1px solid var(--line);
+}
+.end h2{font-size:30px}
+.end p{color:var(--muted)}
+.bottom-nav{
+ display:flex;justify-content:space-between;
+ gap:12px;margin:30px 0;
+}
+.bottom-nav button{flex:1}
+footer{text-align:center;color:var(--muted);padding:25px;font:11px Arial}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<nav>
+<a href="index.html">← STORY HOME</a>
+<span>MANGA READER</span>
+<button id="theme">LIGHT MODE</button>
+</nav>
+
+<main>
+<header class="cover">
+<div class="kicker">An Original Romance Manga</div>
+<h1>THE BOY WHO<br>LOVED HER<br>IN SILENCE</h1>
+<p>Some feelings are too difficult to say aloud.</p>
+<a class="start" href="#chapters">OPEN THE STORY ↓</a>
+</header>
+
+<div id="chapters">
+<div class="chapter-nav">
+<button class="active" onclick="showChapter(1)">CHAPTER 01</button>
+<button onclick="showChapter(2)">CHAPTER 02</button>
+</div>
+
+<!-- CHAPTER 1 -->
+<section class="chapter active" id="chapter1">
+<div class="chapter-title">
+<div class="kicker">Chapter 01</div>
+<h2>The Girl Behind the Rain</h2>
+<p>Every love story has a silent beginning.</p>
+</div>
+
+<div class="page">
+<div class="page-number">PAGE 01 · THE CLASSROOM</div>
+<div class="panel">
+<div class="visual">☀</div>
+<h3>The Boy by the Window</h3>
+<p>He always chose the seat beside the classroom window.</p>
+</div>
+<div class="narration">Not because he loved the rain. Because from there, he could see her crossing the school courtyard.</div>
+<div class="panel light-panel">
+<h3>Kairo Shin</h3>
+<p>A boy with countless words in his heart, but none on his lips.</p>
+</div>
+</div>
+
+<div class="page">
+<div class="page-number">PAGE 02 · MIKA</div>
+<div class="panel">
+<div class="visual">♡</div>
+<h3>Then she smiled.</h3>
+<p>Mika Hayashi laughed with her friends in the hallway.</p>
+</div>
+<div class="narration">To everyone else, it was an ordinary moment. To Kairo, it made an ordinary day unforgettable.</div>
+<div class="panel">
+<h3>A Secret</h3>
+<p>For almost two years, Kairo had kept one small secret.</p>
+<div class="bubble thought">I wish I could tell her how I feel.</div>
+</div>
+</div>
+
+<div class="page">
+<div class="page-number">PAGE 03 · THE RAIN</div>
+<div class="panel light-panel">
+<div class="visual">☂</div>
+<h3>After School</h3>
+<p>The sky suddenly opened. Students hurried toward the gates.</p>
+</div>
+<div class="narration">Kairo stood beneath the roof, watching the rain blur the world beyond the courtyard.</div>
+<div class="panel">
+<div class="speaker">Mika</div>
+<div class="bubble">Do you have room under your umbrella?</div>
+</div>
+<div class="narration">Kairo forgot every sentence he had ever practised.</div>
+</div>
+
+<div class="page">
+<div class="page-number">PAGE 04 · THE NOTE</div>
+<div class="panel">
+<h3>The Next Morning</h3>
+<p>A small piece of paper waited inside Kairo's notebook.</p>
+<div class="bubble thought">Kairo, tum hamesha itne chup kyun rehte ho? Kabhi mujhse bhi baat kiya karo. — Mika</div>
+</div>
+<div class="narration">His eyes stayed on the note. For once, he didn't know whether to smile or worry.</div>
+</div>
+
+<div class="end">
+<div class="kicker">END OF CHAPTER 01</div>
+<h2>Some beginnings are quiet.</h2>
+<p>But they can change everything.</p>
+<button onclick="showChapter(2)">READ CHAPTER 02 →</button>
+</div>
+</section>
+
+<!-- CHAPTER 2 -->
+<section class="chapter" id="chapter2">
+<div class="chapter-title">
+<div class="kicker">Chapter 02</div>
+<h2>The Smile Behind the Shadow</h2>
+<p>Someone from her past has returned.</p>
+</div>
+
+<div class="page">
+<div class="page-number">PAGE 01 · THE UNREAD MESSAGE</div>
+<div class="panel">
+<div class="visual">✉</div>
+<h3>The Next Morning</h3>
+<p>Kairo sat beside the classroom window, holding Mika's handwritten note.</p>
+</div>
+<div class="bubble thought">Maybe… I should talk to her today.</div>
+<div class="narration">For the first time, Kairo decided to speak before fear stopped him.</div>
+</div>
+
+<div class="page">
+<div class="page-number">PAGE 02 · THE NEW STUDENT</div>
+<div class="panel light-panel">
+<div class="visual">🚪</div>
+<h3>Suddenly, the door opened.</h3>
+<p>The teacher entered with a boy none of them had seen before.</p>
+</div>
+<div class="speaker">Teacher</div>
+<div class="bubble">Students, we have a new transfer student joining us today.</div>
+<div class="panel">
+<h3>Ren Kurosawa</h3>
+<p>Black hair. Sharp eyes. A confident smile.</p>
+</div>
+<div class="speaker">Ren</div>
+<div class="bubble">My name is Ren Kurosawa. Nice to meet you.</div>
+</div>
+
+<div class="page">
+<div class="page-number">PAGE 03 · SOMEONE FROM HER PAST</div>
+<div class="panel">
+<h3>His eyes found Mika.</h3>
+<p>Her smile slowly disappeared.</p>
+</div>
+<div class="speaker">Ren</div>
+<div class="bubble">It's been a long time, Mika.</div>
+<div class="speaker">Mika</div>
+<div class="bubble">Ren…? Why are you here?</div>
+<div class="speaker">Ren</div>
+<div class="bubble">You really thought I wouldn't find you?</div>
+<div class="narration">Kairo noticed the fear in Mika's expression.</div>
+</div>
+
+<div class="page">
+<div class="page-number">PAGE 04 · THE EMPTY SEAT</div>
+<div class="panel light-panel">
+<h3>Behind Kairo</h3>
+<p>The teacher assigned Ren the empty seat behind Kairo.</p>
+</div>
+<div class="speaker">Ren · Whispering</div>
+<div class="bubble">We need to talk. You haven't forgotten our promise, have you?</div>
+<div class="narration">Mika didn't answer.</div>
+<div class="speaker">Kairo</div>
+<div class="bubble">Mika… are you okay?</div>
+<div class="speaker">Mika</div>
+<div class="bubble">You… talked to me first.</div>
+<div class="speaker">Kairo</div>
+<div class="bubble">I… just wanted to ask.</div>
+</div>
+
+<div class="page">
+<div class="page-number">PAGE 05 · THE WARNING</div>
+<div class="panel">
+<div class="visual">🌆</div>
+<h3>After School</h3>
+<p>Ren appeared near the school gate.</p>
+</div>
+<div class="speaker">Ren</div>
+<div class="bubble">You seem interested in Mika.</div>
+<div class="speaker">Kairo</div>
+<div class="bubble">Why?</div>
+<div class="speaker">Ren</div>
+<div class="bubble">Don't get too close to her.</div>
+<div class="speaker">Ren</div>
+<div class="bubble">Because you don't know what happened between us.</div>
+</div>
+
+<div class="page">
+<div class="page-number">PAGE 06 · THE SECRET</div>
+<div class="panel light-panel">
+<div class="visual">🌙</div>
+<h3>11:47 PM</h3>
+<p>Mika sat beside her bedroom window. Her phone vibrated.</p>
+</div>
+<div class="narration">UNKNOWN NUMBER</div>
+<div class="bubble">I'm back, Mika. And this time, you can't run away.</div>
+<div class="speaker">Mika</div>
+<div class="bubble">Please… not again.</div>
+<div class="panel">
+<h3>Kairo's Notebook</h3>
+<div class="bubble thought">I don't know what she's hiding… but I don't want to see her cry.</div>
+</div>
+</div>
+
+<div class="end">
+<div class="kicker">END OF CHAPTER 02</div>
+<h2>The Promise We Buried</h2>
+<p>Some secrets refuse to stay buried.</p>
+<button onclick="showChapter(1)">← BACK TO CHAPTER 01</button>
+</div>
+</section>
+</div>
+
+<div class="bottom-nav">
+<button onclick="showChapter(1)">← CHAPTER 01</button>
+<button onclick="showChapter(2)">CHAPTER 02 →</button>
+</div>
+</main>
+
+<footer>
+THE BOY WHO LOVED HER IN SILENCE<br>
+An Original Manga Story
+</footer>
+
+<script>
+function showChapter(n){
+ document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
+ document.getElementById('chapter'+n).classList.add('active');
+ document.querySelectorAll('.chapter-nav button').forEach((b,i)=>{
+  b.classList.toggle('active',i+1===n);
+ });
+ window.scrollTo({top:document.getElementById('chapters').offsetTop-45,behavior:'smooth'});
+}
+const bar=document.getElementById('progress');
+function updateProgress(){
+ const max=document.documentElement.scrollHeight-innerHeight;
+ bar.style.width=(max>0?scrollY/max*100:0)+'%';
+}
+addEventListener('scroll',updateProgress,{passive:true});
+updateProgress();
+document.getElementById('theme').onclick=function(){
+ document.body.classList.toggle('light');
+ this.textContent=document.body.classList.contains('light')?'DARK MODE':'LIGHT MODE';
+};
+</script>
+</body>
+</html>
